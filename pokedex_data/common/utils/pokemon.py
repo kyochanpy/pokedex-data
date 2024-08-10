@@ -5,12 +5,16 @@ from pokedex_data.common.models.pokemon import Pokemons
 from pokedex_data.common.utils.config import load_config
 
 
-def _get_pokemon_names_from_response(pokemons: Pokemons) -> Sequence[str]:
+def get_pokemon_names_by_generation(generation: int) -> Sequence[str]:
+    config = load_config()
+    response = requests.get(config.poke_api.endpoint + f"/generation/{generation}")
+    if response.status_code != 200:
+        raise Exception("ポケモン一覧の取得に失敗しました。")
+    pokemons = Pokemons.model_validate(response.json())
     return [pokemon.name for pokemon in pokemons.pokemons]
 
 
-def get_pokemon_names_by_generation(generation: int) -> tuple[Sequence[str], str]:
-    config = load_config()
+def get_game_soft_by_generation(generation: int) -> str:
     generation_game_soft = {
         1: "red",
         2: "gold",
@@ -22,10 +26,4 @@ def get_pokemon_names_by_generation(generation: int) -> tuple[Sequence[str], str
         8: "sword",
         9: "scarlet",
     }
-
-    response = requests.get(config.poke_api.endpoint + f"/generation/{generation}")
-    if response.status_code != 200:
-        raise Exception("ポケモン一覧の取得に失敗しました。")
-    pokemons = Pokemons.model_validate(response.json())
-
-    return _get_pokemon_names_from_response(pokemons), generation_game_soft[generation]
+    return generation_game_soft[generation]
