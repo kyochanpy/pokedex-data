@@ -1,0 +1,5 @@
+{
+    "poke_api": {
+        "endpoint": "https://pokeapi.co/api/v2"
+    }
+}
