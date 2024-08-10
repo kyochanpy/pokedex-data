@@ -2,6 +2,7 @@ from pokedex_data.common.models.config import PokeApiConfig
 from pokedex_data.common.utils.pokemon import get_pokemon_names_by_generation
 from pokedex_data.get_data.interfaces import PokemonRepository, PokemonSpeciesRepository
 import polars as pl
+import time
 
 
 def main(
@@ -43,6 +44,7 @@ def main(
         special_defense_list.append(pokemon.stats.special_defense)
         speed_list.append(pokemon.stats.speed)
         flavor_text_list.append(pokemon_species.flavor_text)
+        time.sleep(1)
 
     df = pl.DataFrame(
         {
