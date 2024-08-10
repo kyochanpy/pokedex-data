@@ -1,7 +1,7 @@
 from typing import Sequence
 import requests
 
-from pokedex_data.common.models.pokemon import Pokemons
+from pokedex_data.common.models.pokemon import GenPokemon
 from pokedex_data.common.utils.config import load_config
 
 
@@ -10,7 +10,7 @@ def get_pokemon_names_by_generation(generation: int) -> Sequence[str]:
     response = requests.get(config.poke_api.endpoint + f"/generation/{generation}")
     if response.status_code != 200:
         raise Exception("ポケモン一覧の取得に失敗しました。")
-    pokemons = Pokemons.model_validate(response.json())
+    pokemons = GenPokemon.model_validate(response.json())
     return [pokemon.name for pokemon in pokemons.pokemons]
 
 
