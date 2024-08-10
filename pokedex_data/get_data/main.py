@@ -3,6 +3,7 @@ from pokedex_data.common.utils.pokemon import get_pokemon_names_by_generation
 from pokedex_data.get_data.interfaces import PokemonRepository, PokemonSpeciesRepository
 import polars as pl
 import time
+from tqdm import tqdm
 
 
 def main(
@@ -27,7 +28,7 @@ def main(
     special_defense_list: list[int] = []
     speed_list: list[int] = []
     flavor_text_list: list[str] = []
-    for pokemon_name in pokemon_names:
+    for pokemon_name in tqdm(pokemon_names):
         pokemon = pokemon_repository.get_pokemon(pokemon_name)
         pokemon_species = pokemon_species_repository.get_pokemon_species(pokemon_name)
         order_list.append(pokemon.order)
