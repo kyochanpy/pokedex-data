@@ -23,15 +23,13 @@ class PokemonSpeciesRepositoryImpl(PokemonSpeciesRepository):
                 "'pokemon-species'エンドポイントからのデータ取得に失敗しました。"
             )
         species_json = species_response.json()
-        names = NamesJson.model_validate(species_json["names"])
-        genera = GeneraJson.model_validate(species_json["genera"])
+        names = NamesJson.model_validate({"names": species_json["names"]})
+        genera = GeneraJson.model_validate({"genera": species_json["genera"]})
         flavor_text = FlavorTextsJson.model_validate(
-            species_json["flavor_text_entries"]
+            {"flavor_text_entries": species_json["flavor_text_entries"]}
         )
         return PokemonSpecies(
             name=names.get_name(),
             genus=genera.get_genus(),
-            flavor_text=flavor_text.get_flavor_text(
-                get_game_soft_by_generation(self._poke_api_config.generation)
-            ),
+            flavor_text=flavor_text.get_flavor_text(),
         )

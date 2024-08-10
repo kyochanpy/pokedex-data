@@ -12,7 +12,7 @@ def main(
 ) -> None:
     pokemon_names = get_pokemon_names_by_generation(poke_api_config.generation)
 
-    order_list = list[int] = []
+    order_list: list[int] = []
     name_list: list[str] = []
     genus_list: list[str] = []
     weight_list: list[int] = []
@@ -30,7 +30,7 @@ def main(
         pokemon = pokemon_repository.get_pokemon(pokemon_name)
         pokemon_species = pokemon_species_repository.get_pokemon_species(pokemon_name)
         order_list.append(pokemon.order)
-        name_list.append(pokemon_name)
+        name_list.append(pokemon_species.name)
         genus_list.append(pokemon_species.genus)
         weight_list.append(pokemon.weight)
         height_list.append(pokemon.height)

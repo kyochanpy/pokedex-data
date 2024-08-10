@@ -51,13 +51,11 @@ class FlavorTextJson(BaseModel):
 class FlavorTextsJson(BaseModel):
     flavor_text_entries: Sequence[FlavorTextJson]
 
-    def get_flavor_text(self, soft: str) -> str:
+    def get_flavor_text(self) -> str:
         for flavor_text in self.flavor_text_entries:
-            if flavor_text.language.name == "ja" and flavor_text.version.name == soft:
+            if flavor_text.language.name in ["ja", "ja-Hrkt"]:
                 return flavor_text.flavor_text
-        raise Exception(
-            "日本語対応していない、もしくは指定したソフトのバージョンが存在しません・"
-        )
+        raise Exception("日本語対応していません。")
 
 
 class PokemonSpecies(BaseModel):

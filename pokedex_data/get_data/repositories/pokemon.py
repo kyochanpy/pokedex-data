@@ -15,8 +15,8 @@ class PokemonRepositoryImpl(PokemonRepository):
         if pokemon_response.status_code != 200:
             raise Exception("'pokemon'エンドポイントからのデータ取得に失敗しました。")
         pokemon_json = pokemon_response.json()
-        stats = StatsJson.model_validate(pokemon_json["stats"])
-        types = TypesJson.model_validate(pokemon_json["types"])
+        stats = StatsJson.model_validate({"stats": pokemon_json["stats"]})
+        types = TypesJson.model_validate({"types": pokemon_json["types"]})
         return Pokemon(
             order=pokemon_json["order"],
             stats=stats.parse(),
