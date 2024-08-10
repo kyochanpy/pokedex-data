@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PokeApiConfig(BaseModel):
-    generation: int
+    generation: int = Field(default=1)
     endpoint: str
 
 
