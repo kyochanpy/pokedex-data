@@ -11,6 +11,7 @@ pydantic = "^2.8.2"
 requests = "^2.32.3"
 polars = "^1.4.1"
 tqdm = "^4.66.5"
+supabase = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
