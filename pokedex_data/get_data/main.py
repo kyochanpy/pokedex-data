@@ -16,6 +16,7 @@ def main(
 
     order_list: list[int] = []
     name_list: list[str] = []
+    name_en_list: list[str] = []
     genus_list: list[str] = []
     weight_list: list[int] = []
     height_list: list[int] = []
@@ -33,6 +34,7 @@ def main(
         pokemon_species = pokemon_species_repository.get_pokemon_species(pokemon_name)
         order_list.append(pokemon.order)
         name_list.append(pokemon_species.name)
+        name_en_list.append(pokemon_name)
         genus_list.append(pokemon_species.genus)
         weight_list.append(pokemon.weight)
         height_list.append(pokemon.height)
@@ -51,6 +53,7 @@ def main(
         {
             "order": order_list,
             "name": name_list,
+            "name_en": name_en_list,
             "genus": genus_list,
             "weight": weight_list,
             "height": height_list,
@@ -65,4 +68,4 @@ def main(
             "flavor_text": flavor_text_list,
         }
     )
-    df.write_csv("pokemon.csv")
+    df.write_csv(f"data/csv/generation_{poke_api_config.generation}.csv")
