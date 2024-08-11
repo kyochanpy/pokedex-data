@@ -6,5 +6,11 @@ class PokeApiConfig(BaseModel):
     endpoint: str
 
 
+class SupaBaseConfig(BaseModel):
+    url: str
+    key: str
+
+
 class Config(BaseModel):
     poke_api: PokeApiConfig
+    supabase: SupaBaseConfig
