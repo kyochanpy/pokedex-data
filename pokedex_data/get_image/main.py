@@ -12,8 +12,8 @@ def main(
 
     for pokemon_name in tqdm(pokemon_names):
         image, dot_image = image_repository.get_image(pokemon_name)
-        with open(f"images/{pokemon_name}.png", "wb") as f:
+        with open(f"data/image/normal/{pokemon_name}.png", "wb") as f:
             f.write(image)
-        with open(f"images/{pokemon_name}_dot.png", "wb") as f:
+        with open(f"data/image/dot/{pokemon_name}_dot.png", "wb") as f:
             f.write(dot_image)
         time.sleep(5)
