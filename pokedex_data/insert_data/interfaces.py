@@ -10,3 +10,8 @@ class InsertPokemonsRepository(ABC):
 class InsertTypesRepository(ABC):
     @abstractmethod
     def insert_types(self, df: pl.DataFrame) -> None: ...
+
+
+class InsertPokemonTypeRepository(ABC):
+    @abstractmethod
+    def insert_pokemon_type(self, df: pl.DataFrame) -> None: ...
