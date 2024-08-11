@@ -13,3 +13,4 @@ class SupaBaseConfig(BaseModel):
 
 class Config(BaseModel):
     poke_api: PokeApiConfig
+    supabase: SupaBaseConfig
