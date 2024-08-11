@@ -1,5 +1,10 @@
 {
     "poke_api": {
+        "generation": 1,
         "endpoint": "https://pokeapi.co/api/v2"
+    },
+    "supabase": {
+        "url": "",
+        "key": ""
     }
 }
