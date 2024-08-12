@@ -7,7 +7,7 @@ def main(
     create_bucket_repository: CreateBucketRepository,
     put_image_repository: PutImageRepository,
 ) -> None:
-    create_bucket_repository.create_bucket("images")
+    # create_bucket_repository.create_bucket("images")
 
     image_files = os.listdir("data/image/normal")
     for image_file in image_files:
