@@ -56,3 +56,17 @@ CREATE TABLE pokemons_photos (
     FOREIGN KEY (pokemon_id) REFERENCES pokemons(id),
     FOREIGN KEY (photo_id) REFERENCES photos(id)
 );
+
+
+insert into storage.buckets
+    (id, name)
+values
+    ('images', 'images');
+
+CREATE POLICY "images_select" ON storage.objects FOR SELECT TO anon USING (bucket_id = 'images');
+
+CREATE POLICY "images_insert" ON storage.objects FOR INSERT TO anon WITH CHECK (bucket_id = 'images');
+
+CREATE POLICY "images_update" ON storage.objects FOR UPDATE TO anon USING (bucket_id = 'images');
+
+CREATE POLICY "images_delete" ON storage.objects FOR DELETE TO anon USING (bucket_id = 'images');
