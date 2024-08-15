@@ -13,9 +13,7 @@ class InsertPokemonsReositoryImpl(InsertPokemonsRepository):
 
     def _get_pokemons_columns(self, df: DataFrame) -> Sequence[Mapping[str, str | int]]:
         df = df.with_columns((pl.col("name_en") + ".png").alias("image_key"))
-        df = df.with_columns(
-            ("dot_" + pl.col("name_en") + ".png").alias("dot_image_key")
-        )
+        df = df.with_columns((pl.col("name_en") + ".png").alias("dot_image_key"))
         pokemons_df = df.select(
             [
                 "order",

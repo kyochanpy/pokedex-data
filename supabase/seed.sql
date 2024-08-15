@@ -59,9 +59,9 @@ CREATE TABLE pokemons_photos (
 
 
 insert into storage.buckets
-    (id, name)
+    (id, name, public)
 values
-    ('images', 'images');
+    ('images', 'images', true);
 
 CREATE POLICY "images_select" ON storage.objects FOR SELECT TO anon USING (bucket_id = 'images');
 
@@ -70,3 +70,35 @@ CREATE POLICY "images_insert" ON storage.objects FOR INSERT TO anon WITH CHECK (
 CREATE POLICY "images_update" ON storage.objects FOR UPDATE TO anon USING (bucket_id = 'images');
 
 CREATE POLICY "images_delete" ON storage.objects FOR DELETE TO anon USING (bucket_id = 'images');
+
+CREATE OR REPLACE FUNCTION list_pokemons(offset_num int)
+RETURNS TABLE (
+    "order" INT,
+    name VARCHAR,
+    dot_image_key VARCHAR,
+    types VARCHAR[]
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        p."order",
+        p.name,
+        p.dot_image_key,
+        ARRAY_AGG(t.name ORDER BY t.id) AS types
+    FROM
+        pokemons p
+    LEFT JOIN
+        pokemon_type pt ON p.id = pt.pokemon_id
+    LEFT JOIN
+        types t ON pt.type_id = t.id
+    GROUP BY
+        p.id
+    ORDER BY
+        p."order"
+    limit
+        20
+    offset
+        offset_num;
+END;
+$$ LANGUAGE plpgsql;
+
